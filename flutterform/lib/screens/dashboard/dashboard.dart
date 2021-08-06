@@ -1,9 +1,11 @@
+import 'package:flutterform/models/cliente.dart';
 import 'package:flutterform/screens/autenticacao/login.dart';
 import 'package:flutterform/screens/dashboard/saldo.dart';
 import 'package:flutterform/screens/deposito/formulario.dart';
 import 'package:flutterform/screens/transferencia/formulario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterform/screens/extrato/ultimas.dart';
+import 'package:provider/provider.dart';
 
 class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -13,6 +15,17 @@ class Dashboard extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
+           Consumer<Cliente>(
+              builder: (context, cliente, child) {
+                  return Text('Olá, ${cliente.nome.split(" ")[0]}, o seu saldo de hoje é:',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15
+                      )
+                  );
+              }
+          ),
+
           Align(
             alignment: Alignment.topCenter,
             child: SaldoCard(),
@@ -20,9 +33,8 @@ class Dashboard extends StatelessWidget {
           ButtonBar(
             alignment: MainAxisAlignment.center,
             children: <Widget>[
-              ElevatedButton(
-                // color: Colors.green,
-                style: ElevatedButton.styleFrom(primary: Colors.green),
+              RaisedButton(
+                color: Colors.green,
                 child: Text('Recebe valor'),
                 onPressed: () {
                   Navigator.push(
@@ -33,10 +45,9 @@ class Dashboard extends StatelessWidget {
                   );
                 },
               ),
-              ElevatedButton(
-                // color: Colors.green,
+              RaisedButton(
+                color: Colors.green,
                 child: Text('Nova Transferência'),
-                style: ElevatedButton.styleFrom(primary: Colors.green),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -49,17 +60,19 @@ class Dashboard extends StatelessWidget {
             ],
           ),
           UltimasTransferencias(),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.green),
-              onPressed: (){
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(
-                        builder: (context) => Login()
-                    ),
-                        (route) => false);
-              },
-              child: Text('Sair'))
-          
+          RaisedButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Login()
+                  ),
+                      (route) => false
+              );
+            },
+            color: Colors.green,
+            child: Text('Sair'),
+          ),
         ],
       ),
     );

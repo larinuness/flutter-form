@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutterform/components/mensagem.dart';
 import 'package:flutterform/screens/autenticacao/registrar.dart';
 import 'package:flutterform/screens/dashboard/dashboard.dart';
+import 'package:flux_validator_dart/flux_validator_dart.dart';
+
 
 class Login extends StatelessWidget {
   TextEditingController _cpfController = TextEditingController();
@@ -75,15 +77,8 @@ class Login extends StatelessWidget {
             ),
             //só aceita até 11 caracteres
             maxLength: 14,
-            validator: (value) {
-              if (value!.length == 0) {
-                return 'Informe CPF';
-              }
+            validator: (value) => Validator.cpf(value) ? 'CPF inválido' : null,
 
-              if (value.length < 14) {
-                return 'CPF inválido';
-              }
-            },
             //Já aparece com teclado numerico
             keyboardType: TextInputType.number,
             controller: _cpfController,
@@ -118,7 +113,7 @@ class Login extends StatelessWidget {
             child: OutlinedButton(
               onPressed: () {
                 if (_formkey.currentState!.validate()) {
-                  if (_cpfController.text == '111.111.111-11' &&
+                  if (_cpfController.text == '374.148.258-76' &&
                       _senhaController.text == 'abc123') {
                          Navigator.pushAndRemoveUntil(
                         context,

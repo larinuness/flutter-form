@@ -15,7 +15,6 @@ class SaldoCard extends StatelessWidget {
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                     ));
-              },
-            )));
+              },)));
   }
 }

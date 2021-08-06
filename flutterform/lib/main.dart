@@ -1,3 +1,4 @@
+import 'package:flutterform/models/cliente.dart';
 import 'package:flutterform/models/saldo.dart';
 import 'package:flutterform/screens/autenticacao/login.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,9 @@ void main() => runApp(MultiProvider(
     ChangeNotifierProvider(
       create: (context) => Transferencias(),
     ),
+    ChangeNotifierProvider(
+      create: (context) => Cliente(),
+    )
   ],
   child: BytebankApp(),
 ));
